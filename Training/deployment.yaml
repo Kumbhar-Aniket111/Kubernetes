@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-pod
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: mydata
+          mountPath: /app/data
+      volumes:
+        - name: mydata
+          persistentVolumeClaim:
+            claimName: dataclaim
+
