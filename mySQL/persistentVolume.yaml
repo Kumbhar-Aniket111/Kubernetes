@@ -1,8 +1,8 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: nginx-data
-  namespace: web
+  name: sql-data2
+  namespace: sql
 spec:
   capacity:
     storage: 1Gi
@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: "/tmp"
+    path: "/mnt/sqlData"
