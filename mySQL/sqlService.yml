@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-service
+spec:
+  selector:
+    app: sql
+  clusterIP: None
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
