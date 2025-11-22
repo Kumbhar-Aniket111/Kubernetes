@@ -1,12 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: nginx-service
+  name: apache-service
+  namespace: web
 spec:
   selector:
-      app: nginx
+    app: apache
   ports:
   - protocol: TCP
-    port: 80
+    port: 81
     targetPort: 80
   type: ClusterIP

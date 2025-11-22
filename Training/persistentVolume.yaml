@@ -1,7 +1,8 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: data
+  name: nginxdata
+  namespace: web
 spec:
   capacity:
     storage: 1Gi
