@@ -31,11 +31,11 @@ spec:
               name: sql-configmap
               key: MYSQL_DATABASE
         volumeMounts:
-        - name: sql-data1
+        - name: sql-data-vol
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
-      name: sql-data1
+      name: sql-data-vol
     spec:
       accessModes:
         - ReadWriteOnce
