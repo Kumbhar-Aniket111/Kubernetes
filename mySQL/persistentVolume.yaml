@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: sql-data2
+  name: sql-data1
   namespace: sql
 spec:
   capacity:
@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: "/mnt/sqlData"
+    path: "/mnt/"
