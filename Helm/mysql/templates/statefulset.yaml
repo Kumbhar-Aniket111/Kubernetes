@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mysql.fullname" . }}
+  labels:
+    {{  include "mysql.labels" . | nindent 4}}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "mysql.fullname" . }} # Must match the name of the headless service
+  selector:
+    matchLabels:
+      {{ include "mysql.labels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        {{ include "mysql.labels" . | nindent 8}}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          {{- range $key, $value := .Values.configMap }}
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: root
+          - name: {{ $key }}
+            valueFrom:
+              configMapKeyRef:
+                name: dev-mysql
+                key: {{ $key}}
+          {{- end }}
+
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+  {{- if .Values.volumeClaim.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.volumeClaim.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.volumeClaim.size }}
+  {{- end }}
