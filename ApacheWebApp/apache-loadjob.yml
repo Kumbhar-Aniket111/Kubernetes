@@ -13,7 +13,7 @@ spec:
         args:
         - |
           while true; do
-            echo "Accessing apche"
+            echo "Accessing apache"
             wget -q -O- "http://apache-svc.apache.svc.cluster.local"
           done
       restartPolicy: "Never"
