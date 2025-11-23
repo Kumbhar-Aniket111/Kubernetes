@@ -1,0 +1,19 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: apache-load
+  namespace: apache
+spec:
+  template:
+    spec:
+      containers:
+      - name: apache-load
+        image: busybox
+        command: ["/bin/sh", -c]
+        args:
+        - |
+          while true; do
+            echo "Accessing apche"
+            wget -q -O- "http://apache-svc.apache.svc.cluster.local"
+          done
+      restartPolicy: "Never"
