@@ -2,7 +2,6 @@
 
 Kubernetes Training and related Projects.
 
-
 Project Name     |    Description
 -----------------|------------------
 Web-App          | Two nginx apps with services connected to Ingress controller.
